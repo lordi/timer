@@ -22,12 +22,6 @@ function parse_arguments {
         DURATION=$(($DURATION+$second))
     done;
 
-    if [ 0 -eq $DURATION ]; then
-        echo "Usage: $0 [duration]"
-        echo "Example: $0 5m 30s"
-        exit 1
-    fi;
-
     echo $DURATION
 }
 
@@ -37,6 +31,7 @@ function print_bar {
     BARLEFT=$(($1 * $BARWIDTH / $2))
     BARDONE=$(($BARWIDTH - $BARLEFT))
     BAR=$(printf '#%.0s' `seq 1 $BARLEFT`)$(printf '.%.0s' `seq 1 $BARDONE`})
+
     printf "%8s [%.${BARWIDTH}s] \r" $1 $BAR
 }
 
@@ -55,5 +50,13 @@ function countdown {
     print_bar 0 $1
 }
 
-countdown $(parse_arguments $*)
+DURATION=$(parse_arguments $*)
+
+if [ $DURATION -lt 1 ]; then
+    echo "Usage: $0 [duration]"
+    echo "Example: $0 5m 30s"
+    exit 1
+fi;
+countdown $DURATION
+
 echo -e '\n\aCountdown finished!'
