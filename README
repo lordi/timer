@@ -3,6 +3,10 @@ BASH pizza timer
 Starts a countdown for the specified duration and displays a status bar along
 the way. Duration is given similar to `sleep' arguments, e.g., 5m 30s.
 
+Features:
+    * Counting down progress bar (see below)
+    * Alerts you via libnotify when finished
+
 Example call:
 
 $ timer 5m
