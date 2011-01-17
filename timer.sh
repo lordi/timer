@@ -59,4 +59,6 @@ if [ $DURATION -lt 1 ]; then
 fi;
 countdown $DURATION
 
-echo -e '\n\aCountdown finished!'
+echo -e '\n\aTimer finished.'
+
+which notify-send >/dev/null && notify-send "Timer [$*] is finished at $(date)."
